@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=aoc-2023
+%uri=https://github.com/seandstewart/aoc-2023.git
+
+init 2023-12-01T22:33:18Z sqitch <sqitch@d4a1fdcdc706> # Initialize schema

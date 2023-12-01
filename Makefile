@@ -39,10 +39,14 @@ migrate-down:  ## Revert any modified migrations so we can re-apply them.
 name ?=
 comment ?=
 require ?=
+sqitch_args ?=
+ifneq ($(require),)
+	sqitch_args += --require "$(require)"
+endif
 
 new-migration:  ## Make a new migration. Required Arguments: `name=<name>`, `comment=<comment>`, `require=<require>`
-	$(DOCKER_RUN) aoc-migrations add "$(name)" --require "$(require)" -m "$(comment)"
-	git add db
+	$(DOCKER_RUN) aoc-migrations add "$(name)" -m "$(comment)" $(sqitch_args)
+	git add schema
 .PHONY: new-migration
 
 
