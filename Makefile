@@ -5,6 +5,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 DOCKER_RUN ?= docker compose run --rm
+SRC ?= src/aoc
 
 init: install storage  ## Setup your local environment for the first time.
 	cp .env.sample .env
@@ -52,22 +53,24 @@ verify-migration:  ## Make a new migration. Required Arguments: `name=<name>`
 
 day ?= 1
 part ?= 1
+DAY_PKG := "$(SRC)/day/$(day)"
 
 puzzle:  ## Get the puzzle for the targeted day. Arguments: `day=<day|1>`, `part=<part|1>`.
-	cp -R "day/.template" "day/$(day)"
-	chmod +x "day/$(day)/solve.py"
-	aoc download --day=$(day) --input-file="day/$(day)/input" --puzzle-file="day/$(day)/puzzle.md" --overwrite
+	cp -R "$(SRC)/day/.template" $(DAY_PKG)
+	rm -rf "$(DAY_PKG)/.template"
+	chmod +x "$(DAY_PKG)/solve.py"
+	aoc download --day=$(day) --input-file="$(DAY_PKG)/input" --puzzle-file="$(DAY_PKG)/puzzle.md" --overwrite
 	aoc read --day=$(day)
-	git add "day/$(day)/"
+	git add "$(SRC)/day/$(day)/"
 .PHONY: puzzle
 
 
 solve: storage  ## Run the solution for the targeted day. Arguments: `day=<day|1>`
-	poetry run ./day/$(day)/solve.py
+	poetry run ./$(DAY_PKG)/solve.py
 .PHONY: solve
 
 submit: storage  ## Run the solution for the targeted day and submit it to AOC for the targeted part. Arguments: `day=<day|1>`, `part=<part|1>`.
-	aoc submit --day=$(day) $(part) $(shell poetry run ./day/$(day)/solve.py)
+	aoc submit --day=$(day) $(part) $(shell poetry run ./$(DAY_PKG)/solve.py)
 .PHONY: submit
 
 help:  ## Display this help screen.

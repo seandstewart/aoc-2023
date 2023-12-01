@@ -3,8 +3,8 @@ from __future__ import annotations
 
 from yesql import support
 
-from src import read
-from src.repository import repository
+from aoc import read
+from aoc.repository import repository
 
 
 def parse():
