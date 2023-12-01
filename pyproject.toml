@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "aoc-2023"
+version = "0.1.0"
+description = ""
+authors = ["Sean Stewart <sean_stewart@me.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+psycopg = {version = "^3.1.4", extras = ["binary", "pool"]}
+orjson = "^3.8.2"
+yesql = {git = "https://github.com/seandstewart/yesql.git"}
+typical = {git = "https://github.com/seandstewart/typical.git", branch = "v3"}
+python-dotenv = "^1"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
