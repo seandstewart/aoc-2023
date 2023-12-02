@@ -2,8 +2,8 @@
 
 BEGIN;
 
-DROP TABLE IF EXISTS trebuchet.calibration_attempt;
-DROP TABLE IF EXISTS trebuchet.calibration_value;
 DROP FUNCTION IF EXISTS trebuchet.save_calibration_values;
+DROP TABLE IF EXISTS trebuchet.calibration_value;
+DROP TABLE IF EXISTS trebuchet.calibration_attempt;
 
 COMMIT;

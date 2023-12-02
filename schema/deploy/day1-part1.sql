@@ -28,12 +28,10 @@ RETURNS BIGINT AS $$
         INSERT INTO trebuchet.calibration_value (calibration_attempt_id, value)
         SELECT
             na.id AS calibration_attempt_id,
-            cast(parts[1]::text || parts[array_length(parts, 1)]::text AS bigint) as value
+            cast("left"(nums, 1) || "right"(nums, 1) AS bigint) as value
         FROM (
             SELECT
-                regexp_split_to_array(
-                    trim(regexp_replace(tb, E'[a-zA-Z]', ' ', 'g')), E'\\s+'
-                ) as parts
+                regexp_replace(tb, E'[a-zA-Z]', '', 'g') as nums
             FROM regexp_split_to_table("values", E'\\s+') as tb
             WHERE length(tb) > 0
         ) as parsed, lateral ( SELECT id FROM new_attempt LIMIT 1) na
