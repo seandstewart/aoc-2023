@@ -7,3 +7,4 @@ day1-part1 [init] 2023-12-01T22:42:56Z sqitch <sqitch@19b71d6c6f70> # Calibratio
 day1-part2 [init] 2023-12-02T02:20:57Z sqitch <sqitch@a3d9da0d692c> # Calibration magnitude transliteration
 day2-part1 [init] 2023-12-02T12:45:15Z sqitch <sqitch@90e8881a0ea3> # Cube Game Probabilities
 day3-part1 [init] 2023-12-04T02:45:22Z sqitch <sqitch@5e536e171808> # Engine parts matrix
+day3-part2 [day3-part1] 2023-12-04T21:56:18Z sqitch <sqitch@f2c9b84751d4> # Engine parts matrix, gear ratios

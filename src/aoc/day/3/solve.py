@@ -17,7 +17,7 @@ def solve():
             connection=conn,
             values=values
         )
-        return engines.solve.execute(
+        return engines.solve_part_two.execute(
             connection=conn,
             id=saved,
         )
