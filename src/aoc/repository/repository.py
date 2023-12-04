@@ -27,3 +27,13 @@ class CubeGameSeriesRepository(yesql.SyncQueryRepository):
     save: yesql.Statement
     solve: yesql.Statement
     solve_part_two: yesql.Statement
+
+
+class EngineMatrixRepository(yesql.SyncQueryRepository):
+
+    class metadata(BaseMetadata):
+        __tablename__ = "engine_matrix"
+
+    save: yesql.Statement
+    solve: yesql.Statement
+    solve_part_two: yesql.Statement

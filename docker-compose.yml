@@ -14,6 +14,7 @@ services:
       POSTGRES_USER: postgres
     volumes:
     - database:/var/lib/postgresql/data
+    command: ["postgres", "-c", "log_statement=all"]
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "aoc", "-U", "postgres" ]
       interval: 5s
