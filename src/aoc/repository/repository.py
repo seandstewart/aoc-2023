@@ -17,3 +17,13 @@ class CalibrationsRepository(yesql.SyncQueryRepository):
 
     save: yesql.Statement
     solve: yesql.Statement
+
+
+class CubeGameSeriesRepository(yesql.SyncQueryRepository):
+
+    class metadata(BaseMetadata):
+        __tablename__ = "cube_game_series"
+
+    save: yesql.Statement
+    solve: yesql.Statement
+    solve_part_two: yesql.Statement
