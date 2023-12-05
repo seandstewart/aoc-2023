@@ -37,3 +37,13 @@ class EngineMatrixRepository(yesql.SyncQueryRepository):
     save: yesql.Statement
     solve: yesql.Statement
     solve_part_two: yesql.Statement
+
+
+class ScratchOffRepository(yesql.SyncQueryRepository):
+
+    class metadata(BaseMetadata):
+        __tablename__ = "scratch_off"
+
+    save: yesql.Statement
+    solve: yesql.Statement
+    solve_part_two: yesql.Statement
