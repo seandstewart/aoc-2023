@@ -10,23 +10,9 @@ RETURNS anyarray AS $$
     SELECT array (SELECT unnest(arr1) INTERSECT SELECT unnest(arr2))
 $$ LANGUAGE sql IMMUTABLE;
 
-CREATE OR REPLACE FUNCTION array_power(arr bigint[], power bigint) RETURNS BIGINT AS $$
-    DECLARE length BIGINT;
-    DECLARE number BIGINT;
-    DECLARE power BIGINT;
-    BEGIN
-        length := coalesce(array_length(arr, 1), 0);
-        IF length < 2 THEN
-            RETURN length;
-        END IF;
-        power := 1;
-        FOREACH number IN ARRAY arr[2:length]
-        LOOP
-            power := power * 2;
-        END LOOP;
-        RETURN power;
-    end;
-$$ LANGUAGE plpgsql IMMUTABLE;
+CREATE OR REPLACE FUNCTION array_power(arr bigint[], base bigint) RETURNS BIGINT AS $$
+    SELECT power(base, coalesce(array_length(arr), 1) - 1)
+$$ LANGUAGE sql IMMUTABLE;
 
 CREATE TABLE IF NOT EXISTS trebuchet.scratch_off_series (
     id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
