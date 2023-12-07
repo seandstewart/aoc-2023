@@ -3,6 +3,9 @@
 
 BEGIN;
 
+CREATE EXTENSION IF NOT EXISTS btree_gist CASCADE;
+CREATE EXTENSION IF NOT EXISTS intarray CASCADE;
+
 CREATE OR REPLACE FUNCTION lsv_to_table(text)
 RETURNS TABLE (value text, index bigint) AS $$
     SELECT
@@ -54,6 +57,44 @@ RETURNS TABLE (value text, occurrences bigint) AS $$
         count(*) AS occurrence
     FROM (SELECT regexp_split_to_array($1, '') split) s
     GROUP BY 1 ORDER BY 2 DESC
+$$ LANGUAGE sql IMMUTABLE PARALLEL SAFE;
+
+CREATE OR REPLACE FUNCTION array_sum(
+    IN array_in anyarray, OUT array_sum anyelement
+) AS $$
+    BEGIN
+        SELECT sum(a) INTO array_sum FROM unnest(array_in) a;
+    END
+$$ LANGUAGE plpgsql IMMUTABLE PARALLEL SAFE;
+
+CREATE OR REPLACE FUNCTION ssv_to_array(text) RETURNS TEXT[] AS $$
+    SELECT array(
+       SELECT *
+       FROM regexp_split_to_table($1, '[[:space:]]+') t
+       WHERE t != ''
+    )
+$$ LANGUAGE sql IMMUTABLE PARALLEL SAFE;
+
+CREATE OR REPLACE FUNCTION char_array(text) RETURNS TEXT[] AS $$
+    SELECT array(
+        SELECT trim(t)
+        FROM regexp_split_to_table($1, '') t
+        WHERE trim(t) != ''
+    )
+$$ LANGUAGE sql IMMUTABLE PARALLEL SAFE;
+
+CREATE OR REPLACE FUNCTION char_table(text)
+RETURNS TABLE (value text, index bigint) AS $$
+    SELECT
+        unnest(s.split) AS value,
+        -- Order-preserving method to enumerate an index value.
+        --  row_number() needs a deterministic sort, which we don't have yet.
+        generate_series(1, array_length(s.split, 1)) AS index
+    FROM (
+        SELECT array_agg(t.tsplit) split
+        FROM (SELECT trim(regexp_split_to_table($1, '')) AS tsplit) t
+        WHERE t.tsplit != ''
+    ) s
 $$ LANGUAGE sql IMMUTABLE PARALLEL SAFE;
 
 COMMIT;

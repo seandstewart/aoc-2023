@@ -47,3 +47,12 @@ class ScratchOffRepository(yesql.SyncQueryRepository):
     save: yesql.Statement
     solve: yesql.Statement
     solve_part_two: yesql.Statement
+
+
+class CamelCardGameRepository(yesql.SyncQueryRepository):
+
+    class metadata(BaseMetadata):
+        __tablename__ = "camel_card_game"
+
+    save: yesql.Statement
+    solve: yesql.Statement

@@ -10,3 +10,4 @@ day3-part1 [init] 2023-12-04T02:45:22Z sqitch <sqitch@5e536e171808> # Engine par
 day3-part2 [day3-part1] 2023-12-04T21:56:18Z sqitch <sqitch@f2c9b84751d4> # Engine parts matrix, gear ratios
 day4-part1 [init] 2023-12-04T23:19:56Z sqitch <sqitch@01da471b8850> # Scratch offs
 util [init] 2023-12-07T12:35:20Z sqitch <sqitch@2bc6eda671e5> # Utilities
+day7-part1 [util] 2023-12-07T14:55:38Z sqitch <sqitch@d828aa5e3230> # Camel Cards
