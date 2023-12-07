@@ -24,7 +24,7 @@ DO $$
         ...$.*....
         .664.598..
         ';
-        expected_gear_part_numbers := ARRAY [[598, 755], [35, 467]];
+        expected_gear_part_numbers := ARRAY [[35, 467], [598, 755]];
         expected_gear_ratios_total := 467835;
         -- When
         test_engine_matrix_id := (

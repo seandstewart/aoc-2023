@@ -11,7 +11,7 @@ RETURNS anyarray AS $$
 $$ LANGUAGE sql IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION array_power(arr bigint[], base bigint) RETURNS BIGINT AS $$
-    SELECT power(base, coalesce(array_length(arr), 1) - 1)
+    SELECT coalesce(power(base, array_length(arr, 1) - 1), 0)
 $$ LANGUAGE sql IMMUTABLE;
 
 CREATE TABLE IF NOT EXISTS trebuchet.scratch_off_series (
