@@ -38,6 +38,7 @@ RETURNS TABLE (
         ) joker
     ), merged AS (
         SELECT
+            cards_agg.id,
             cards_agg.hand,
             cards_agg.card_ranks,
             counts_agg.real_combo,
@@ -65,7 +66,7 @@ RETURNS TABLE (
         merged.card_ranks,
         rank() OVER (ORDER BY cch.rank, merged.card_ranks) as overall_rank
     FROM merged
-        INNER JOIN rounds ON merged.hand = rounds.hand
+        INNER JOIN rounds ON merged.id = rounds.id
         INNER JOIN trebuchet.camel_card_hand cch
             ON cch.combination = merged.jokered_combo
     ORDER BY combo_rank, card_ranks
